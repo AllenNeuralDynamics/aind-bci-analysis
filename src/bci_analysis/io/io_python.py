@@ -1,5 +1,7 @@
-import numpy as np
 import os
+
+import numpy as np
+
 
 def read_sessionwise_npy(file_path):
     """
@@ -16,11 +18,12 @@ def read_sessionwise_npy(file_path):
         file_path: str
             Path to loaded npy file
         file_name:
-            Loaded file name        
+            Loaded file name
         F_sessionwise: float [neurons x time_points]
             Fluoroscence trace for the whole session
         F_trialwise_all: float [time points x neurons x trials]
-            Fluoroscence trace trialwise, each trial contains 40 timepoints from the previous trial for a better comparison of changes
+            Fluoroscence trace trialwise, each trial contains 40 timepoints
+            from the previous trial for a better comparison of changes
         F_trialwise_closed_loop: float [time points x neurons x trials]
             Fluoroscence trace trialwise, only for closedloop trials
         dff_sessionwise: float [neurons x time_points]
@@ -35,7 +38,7 @@ def read_sessionwise_npy(file_path):
             X-coordinate of the roi center for each neuron
         roiY: float [neurons x 1]
             Y-coordinate of the roi center for each neuron
-        dist: float [neurons x 1] 
+        dist: float [neurons x 1]
             distance from the conditioned neuron
         FOV: str
             Field of view for the session
@@ -52,13 +55,15 @@ def read_sessionwise_npy(file_path):
         time_since_trial_start: [time points x 1]
             Time stamps for each frame
         go_cue_times: float [trials x 1]
-            Time relative to the trial start when the go-cue arrives, usually same for all the trials
+            Time relative to the trial start when the go-cue arrives, usually
+            same for all the trials
         lick_times: float
             Lickport licks, time relative to trial start
         reward_times: float
             reward times, time relative to trial start
         trial_times: float
-            Time(in s) of the trials, we usually cut off the trace for F_trialwise
+            Time(in s) of the trials, we usually cut off the trace for
+            F_trialwise
         hit: bool, [trial x 1]
             Boolean to represent if the trial is successful or not
         threshold_crossing_times: float [trial x 1]
@@ -69,45 +74,48 @@ def read_sessionwise_npy(file_path):
             sampling rate for the camera
         all_si_filenames: str
             list of filenames corresponding to all trials
-        closed_loop_filenames: str 
+        closed_loop_filenames: str
             list of filenames corresponding to closedloop trials
     """
-    file_path,file_name = os.path.split(file_path)
-    data = np.load(os.path.join(file_path,file_name), allow_pickle=True).tolist()
+    file_path, file_name = os.path.split(file_path)
+    data = np.load(
+        os.path.join(file_path, file_name), allow_pickle=True
+    ).tolist()
 
-    data_dict ={'file_path':file_path,
-                'file_name':file_name,
-                'subject':data['mouse'],
-                'F_sessionwise': data["F_sessionwise"],
-                'F_trialwise_all': data["F_trialwise_all"],
-                'F_trialwise_closed_loop': data["F_trialwise_closed_loop"],
-                'dff_sessionwise': data["dff_sessionwise"],
-                'dff_trialwise_all': data["dff_trialwise_all"],
-                'dff_trialwise_closed_loop': data["dff_trialwise_closed_loop"],
-                'cn': data["cn"],
-                'roiX': data["roiX"],
-                'roiY': data["roiY"],
-                'dist': data["dist"],
-                'FOV': data["FOV"],
-                'session_date': data["session_date"],
-                'session_path': data["session_path"],
-                'mouse': data["mouse"],
-                'mean_image': data["mean_image"],
-                'max_image': data["max_image"],
-                'time_since_trial_start': data["time_since_trial_start"],
-                'go_cue_times': data["go_cue_times"],
-                'lick_times': data["lick_times"],
-                'reward_times': data["reward_times"],
-                'trial_times': data["trial_times"],
-                'hit': data["hit"],
-                'threshold_crossing_times': data["threshold_crossing_times"],
-                'zaber_move_forward': data["zaber_move_forward"],
-                'sampling_rate': data["sampling_rate"],
-                'all_si_filenames': data["all_si_filenames"],
-                'closed_loop_filenames': data["closed_loop_filenames"],
-                'all_si_frame_nums':data['all_si_frame_nums'],
-                'photon_counts':data['photon_counts'],
-                'f0_scalar':data['f0_scalar'],
-            }
-        
+    data_dict = {
+        "file_path": file_path,
+        "file_name": file_name,
+        "subject": data["mouse"],
+        "F_sessionwise": data["F_sessionwise"],
+        "F_trialwise_all": data["F_trialwise_all"],
+        "F_trialwise_closed_loop": data["F_trialwise_closed_loop"],
+        "dff_sessionwise": data["dff_sessionwise"],
+        "dff_trialwise_all": data["dff_trialwise_all"],
+        "dff_trialwise_closed_loop": data["dff_trialwise_closed_loop"],
+        "cn": data["cn"],
+        "roiX": data["roiX"],
+        "roiY": data["roiY"],
+        "dist": data["dist"],
+        "FOV": data["FOV"],
+        "session_date": data["session_date"],
+        "session_path": data["session_path"],
+        "mouse": data["mouse"],
+        "mean_image": data["mean_image"],
+        "max_image": data["max_image"],
+        "time_since_trial_start": data["time_since_trial_start"],
+        "go_cue_times": data["go_cue_times"],
+        "lick_times": data["lick_times"],
+        "reward_times": data["reward_times"],
+        "trial_times": data["trial_times"],
+        "hit": data["hit"],
+        "threshold_crossing_times": data["threshold_crossing_times"],
+        "zaber_move_forward": data["zaber_move_forward"],
+        "sampling_rate": data["sampling_rate"],
+        "all_si_filenames": data["all_si_filenames"],
+        "closed_loop_filenames": data["closed_loop_filenames"],
+        "all_si_frame_nums": data["all_si_frame_nums"],
+        "photon_counts": data["photon_counts"],
+        "f0_scalar": data["f0_scalar"],
+    }
+
     return data_dict
